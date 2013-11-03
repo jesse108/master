@@ -5,7 +5,7 @@ $dbConfig['rw'] = array(
 	'host' => 'localhost',
 	'user' => 'root',
 	'password' => '123456',
-	'name' => '',
+	'name' => 'teemo',
 );
 
 
@@ -14,7 +14,7 @@ $dbConfig['ro'] = array(
 	'host' => 'localhost',
 	'user' => 'root',	
 	'password' => '123456',
-	'name' => '',	
+	'name' => 'teemo',	
 );
 
 

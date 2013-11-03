@@ -24,6 +24,6 @@ function __autoload($strClassName)
 
 require_once COM_PATH.'/function.php';
 
-Config::load();
+Config::Load();
 
-$dbConfig = Config::get('db');
+$dbConfig = Config::Get('db');

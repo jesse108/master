@@ -2,7 +2,7 @@
 class Config{
 	public static $config;
 	
-	public static function load($name = null){
+	public static function Load($name = null){
 		$name = $name ? $name : 'system';
 		$name = str_replace('_', '/', $name);
 		$configPath = CONF_PATH . '/'.$name.'.conf.php';
@@ -15,12 +15,12 @@ class Config{
 		}
 	}
 	
-	public static function get($name = null){
+	public static function Get($name = null){
 		if(!$name){
 			return self::$config;
 		}
 		if(!self::$config[$name]){
-			self::load($name);
+			self::Load($name);
 		}
 		return self::$config[$name];
 	}
