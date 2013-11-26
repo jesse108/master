@@ -11,6 +11,10 @@ class File{
 		$this->mode = $mode;
 	}
 	
+	public function exists(){
+		return file_exists($this->filePath);
+	}
+	
 	public function open(){
 		$mode = $this->mode;
 		$this->handle = fopen($this->filePath, $mode);

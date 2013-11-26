@@ -7,9 +7,10 @@ define('CLASS_PATH', ROOT_PATH.'class');
 define('CONF_PATH', ROOT_PATH.'/conf');
 define('LANG_PATH', ROOT_PATH.'LANG_PATH');
 define('COM_PATH', ROOT_PATH.'/common');
+define('PLUGIN_PATH', ROOT_PATH.'/plugins');
 
 
-function __autoload($strClassName)
+function classAutoload($strClassName)
 {
 	$strClassName = str_replace('_', '/', $strClassName);
 	$libClassPath = LIB_PATH.'/'.$strClassName.'.class.php';
@@ -21,9 +22,11 @@ function __autoload($strClassName)
 	}
 }
 
+spl_autoload_register('classAutoload');
 
-require_once COM_PATH.'/function.php';
+//////////////require
+require_once COM_PATH.'/function.php'; //常用函数
+require_once PLUGIN_PATH . '/Smarty3/libs/Smarty.class.php';
 
 Config::Load();
 
-$dbConfig = Config::Get('db');
