@@ -10,28 +10,45 @@ class Utility{
      * @param number $type 生成字符类型 
      * @return string 随机字串
      */
-	public static function GenRandomStr($len = 6,$type = CHAR_MAX){
+	public static function GenRandomStr($len = 6,$type = self::CHAR_MIX){
 		$random = '';
 		for ($i = 0; $i < $len;  $i++) {
-			switch ($type){
-				case self::CHAR_NUM:
-					if (0==$i) {
-						$random .= chr(rand(49, 57));
+			$random .= self::_GenRandomChar($type,$i);
+		}
+		return $random;
+	}
+	
+	
+	
+	//////////辅助函数
+	private static function _GenRandomChar($type = self::CHAR_MIX,$index = 0){
+		$random = '';
+		switch ($type){
+			case self::CHAR_NUM:
+				if($index == 0){
+					$random = chr(rand(49, 57));
+				} else {
+					$random = chr(rand(48, 57));
+				}
+				break;
+			case self::CHAR_WORD:
+				$key  = rand(0, 1);
+				$random = $key ? chr(rand(65, 90)) : chr(rand(97, 122));
+				break;
+			case self::CHAR_MIX:
+				$key  = rand(0, 2);
+				if($key == 0){
+					if($index == 0){
+						$random = chr(rand(49, 57));
 					} else {
-						$random .= chr(rand(48, 57));
+						$random = chr(rand(48, 57));
 					}
-					break;
-				case self::CHAR_WORD:
-					$random .= chr(rand(65, 90));
-					break;
-				case self::CHAR_MIX:
-					if ( 0==$i ){
-						$random .= chr(rand(65, 90));
-					} else {
-						$random .= (0==rand(0,1))?chr(rand(65, 90)):chr(rand(48,57));
-					}
-					break;
-			}
+				} else if($key == 1){
+					$random = chr(rand(65, 90));
+				} else {
+					$random = chr(rand(97, 122));
+				}
+				break;
 		}
 		return $random;
 	}
