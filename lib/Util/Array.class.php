@@ -37,8 +37,8 @@ class Util_Array{
 	 * 判断返回的数组数据是否正确
 	 * 
 	 */
-	public static function IsComResult($result){
-		if(!$result || !is_array($result) || empty($result)){
+	public static function IsArrayValue($data){
+		if(!$data || !is_array($data) || empty($data)){
 			return false;
 		}
 		return true;
@@ -67,6 +67,11 @@ class Util_Array{
 		return $newArray;
 	}
 	
+	/**
+	 * 对象转化成数组
+	 * @param obj $obj 对象
+	 * @return array 转化后的数组
+	 */
 	public static function ObjectToArray($obj){
 		$_arr = is_object($obj) ? get_object_vars($obj) :$obj;
 		foreach ($_arr as $key=>$val){
@@ -74,5 +79,58 @@ class Util_Array{
 			$arr[$key] = $val;
 		}
 		return $arr;
+	}
+	
+	/**
+	 * 对数组排序
+	 * @param unknown $array
+	 * @param string $order
+	 * @param string $key
+	 * @return multitype:
+	 */
+	public static function Sort($array,$key = null,$order = SORT_ASC){
+		if(!self::IsArrayValue($array)){
+			return array();
+		}
+		$keyArray = array();
+		$sortedArray = array();
+		
+		//分配
+		foreach ($array as $index =>$value){
+			$currentKey = '';
+			if(is_array($value)){
+				if(!$key){
+					$currentKey = $index;
+				} else if(isset($value[$key])){
+					$currentKey = $value[$key];
+				}
+			} else {
+				$currentKey = $value;
+			}
+			
+			$keyArray[$currentKey][] = $index;
+		}
+		
+		
+		///排序
+		switch ($order){
+			case SORT_DESC:
+				krsort($keyArray);
+				break;
+			case SORT_ASC:
+			default:
+				ksort($keyArray);
+				break;
+		}
+		
+		//组装
+		foreach ($keyArray as $indexArray){
+			foreach ($indexArray as $index){
+				$sortedArray[$index] = $array[$index];
+			}
+		}
+		
+		return $sortedArray;
+	
 	}
 }
